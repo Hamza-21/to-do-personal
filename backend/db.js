@@ -1,11 +1,11 @@
 const { Pool } = require("pg");
 
 const pool = new Pool({
-  user: "hamza.ansari", // Usually your macOS username
-  host: "localhost",
-  database: "todo_app",
-  password: "", // Or leave blank if you didn't set one
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 
 module.exports = pool;

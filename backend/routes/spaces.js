@@ -4,10 +4,10 @@ const pool = require("../db");
 
 router.get("/", async (req, res) => {
   try {
-    const allSpaces = await pool.query(
+    const getSpaces = await pool.query(
       "SELECT * FROM spaces ORDER BY created_at DESC"
     );
-    res.json(allSpaces.rows);
+    res.json(getSpaces.rows);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server Error" });
@@ -21,7 +21,9 @@ router.post("/", async (req, res) => {
       "INSERT INTO spaces (name) VALUES ($1) RETURNING *",
       [name]
     );
-    res.json(newSpace.rows);
+    res
+      .status(201)
+      .json({ message: "New Space created", Space: newSpace.rows });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server Error" });
